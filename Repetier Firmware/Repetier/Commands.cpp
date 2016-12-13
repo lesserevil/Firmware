@@ -861,7 +861,7 @@ void Commands::processGCode(GCode *com)
             accelerometer_write(0x3A,uint8_t(probeSensitivity)); //CLICK THRESHOLD
             accelerometer_recv(0x32);
           }else{
-            Com::printLN(PSTR("Calibration Failed"));
+            Com::printFLN(PSTR("Calibration Failed"));
             GCode::executeFString(PSTR("M117 CALIBRATION FAILED"));
             Com::printErrorFLN(Com::tZProbeFailed);
             break;
@@ -891,7 +891,7 @@ void Commands::processGCode(GCode *com)
             accelerometer_write(0x3A,uint8_t(probeSensitivity)); //CLICK THRESHOLD
             accelerometer_recv(0x32);
           }else{
-            Com::printLN(PSTR("Calibration Failed"));
+            Com::printFLN(PSTR("Calibration Failed"));
             GCode::executeFString(PSTR("M117 CALIBRATION FAILED"));
             Com::printErrorFLN(Com::tZProbeFailed);
             break;
@@ -921,7 +921,7 @@ void Commands::processGCode(GCode *com)
             accelerometer_write(0x3A,uint8_t(probeSensitivity)); //CLICK THRESHOLD
             accelerometer_recv(0x32);
           }else{
-            Com::printLN(PSTR("Calibration Failed"));
+            Com::printFLN(PSTR("Calibration Failed"));
             GCode::executeFString(PSTR("M117 CALIBRATION FAILED"));
             Com::printErrorFLN(Com::tZProbeFailed);
             break;
@@ -1009,7 +1009,7 @@ void Commands::processGCode(GCode *com)
             accelerometer_write(0x3A,uint8_t(probeSensitivity)); //CLICK THRESHOLD
             accelerometer_recv(0x32);
           }else{
-            Com::printLN(PSTR("Calibration Failed"));
+            Com::printFLN(PSTR("Calibration Failed"));
             GCode::executeFString(PSTR("M117 CALIBRATION FAILED"));
             Com::printErrorFLN(Com::tZProbeFailed);
             break;
@@ -1037,7 +1037,7 @@ void Commands::processGCode(GCode *com)
             accelerometer_write(0x3A,uint8_t(probeSensitivity)); //CLICK THRESHOLD
             accelerometer_recv(0x32);
           }else{
-            Com::printLN(PSTR("Calibration Failed"));
+            Com::printFLN(PSTR("Calibration Failed"));
             GCode::executeFString(PSTR("M117 CALIBRATION FAILED"));
             Com::printErrorFLN(Com::tZProbeFailed);
             break;

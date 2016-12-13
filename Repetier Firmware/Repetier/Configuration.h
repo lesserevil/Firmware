@@ -32,7 +32,7 @@ Hacker Series H2 = 6
 // ############ FW version info and build date for LCD and M115 string! #######################
 // ############################################################################################
 #define REPETIER_VERSION "0.92.2"
-#define FIRMWARE_DATE "20161209" // in date format yyyymmdd
+#define FIRMWARE_DATE "20161213" // in date format yyyymmdd
 
 
 
@@ -363,7 +363,7 @@ Hacker Series H2 = 6
 #define DELTA_DIAGONAL_ROD 291.06  // ball cup arms
 #define DELTA_MAX_RADIUS 145.0
 #define PRINTER_RADIUS 200.0
-#define Z_MAX_LENGTH 375
+#define Z_MAX_LENGTH 390
 #define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
 #define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
 #define DELTASEGMENTS_PER_PRINTLINE 22
