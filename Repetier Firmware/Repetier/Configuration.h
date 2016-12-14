@@ -9,7 +9,7 @@ Rostock MAX v3 = 5
 Hacker H2 = 6
 */
 // ### Define your Printer Model here! ###
-#define PRINTER 1
+#define PRINTER 6
 
 // ### Define your motherboard here! ###
 // 301 = RAMBo    302 = MINI RAMBo
@@ -57,21 +57,13 @@ Hacker H2 = 6
 // ################## RAMBo Digipot Motor current control settings ################
 // Values 0-255 (RAMBO 135 = ~0.75A, 185 = ~1A)
 // use 140 for xyz and 130 for the E if using Kysan/AutomationTechnology motors and 175 xyz and 200 if using wantai motors
-#define MOTOR_CURRENT {140,140,140,130,0} 
+#define MOTOR_CURRENT {140,140,140,130,0}
 
 //################### Mini Rambo etc... motor current settings    #########
 //  Motor PWM current for mini rambo is X+Y on the same first value, Z on the next, then Extruder(s) on the last value
 // The MINI Rambo is used on all ERIS, DropLit v2 and newer Orions built after appx may 2016
 #define MOTOR_CURRENT_PWM_RANGE 2000
 //#define DEFAULT_PWM_MOTOR_CURRENT  {30, 30, 130}  // X+Y, Z, E+
-#if PRINTER == 1  // Orion Delta
-#define MOTOR_CURRENT_PWM {60, 60, 130}
-#elif PRINTER == 3  // ERIS Delta
-#define MOTOR_CURRENT_PWM {20, 20, 130}
-#elif PRINTER == 4  // DropLit v2
-#define MOTOR_CURRENT_PWM {0, 50, 0}  // No need for X/Y or E motor currents
-#endif
-
 
 // ################ END MANUAL SETTINGS ##########################
 
@@ -125,6 +117,7 @@ Hacker H2 = 6
 
 
 #if PRINTER == 1  // Orion Delta
+#define MOTOR_CURRENT_PWM {60, 60, 130}
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 180
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 80
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 14.50
@@ -206,36 +199,209 @@ Hacker H2 = 6
 #define UI_SET_MAX_EXTRUDER_TEMP   240
 #define UI_SET_EXTRUDER_FEEDRATE 2
 #define UI_SET_EXTRUDER_RETRACT_DISTANCE 3
-#endif
+#define SDSUPPORT 1
+#define SDCARDDETECT 81
+#define SDCARDDETECTINVERTED 0
 
+#elif PRINTER == 2 // Rostock MAX v2
 
-
-
-
-
-
-/* ########### PID Settings for hotends  ########### */
-#if PRINTER == 2  // Rostock MAX v2
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 180
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 80
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 14.50
 #define EXT0_PID_I 0.73
 #define EXT0_PID_D 53.41
 #define EXT0_PID_MAX 235
+#define HAVE_HEATED_BED 1
+#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
+#define MAXTEMP 245            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
+#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
+#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
+#define INVERT_X_DIR 1
+#define INVERT_Y_DIR 1
+#define INVERT_Z_DIR 1
+#define DELTA_DIAGONAL_ROD 291.06  // ball cup arms
+#define DELTA_MAX_RADIUS 145.0
+#define PRINTER_RADIUS 200.0
+#define Z_MAX_LENGTH 350
+#define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
+#define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
+#define DELTASEGMENTS_PER_PRINTLINE 22
+#define STEPPER_INACTIVE_TIME 600L
+#define MAX_INACTIVE_TIME 900L
+#define MAX_FEEDRATE_X 250
+#define MAX_FEEDRATE_Y 250
+#define MAX_FEEDRATE_Z 250
+#define HOMING_FEEDRATE_X 80
+#define HOMING_FEEDRATE_Y 80
+#define HOMING_FEEDRATE_Z 80
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1850
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1850
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1850
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
+#define MAX_JERK 32
+#define MAX_ZJERK 32
+#define FEATURE_Z_PROBE 1
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_BED_DISTANCE 20
+#define Z_PROBE_PULLUP 1
+#define Z_PROBE_ON_HIGH 0
+#define Z_PROBE_X_OFFSET 0
+#define Z_PROBE_Y_OFFSET 0
+#define Z_PROBE_WAIT_BEFORE_TEST 0
+#define Z_PROBE_SPEED 60
+#define Z_PROBE_XY_SPEED 50
+#define Z_PROBE_SWITCHING_DISTANCE 10
+#define Z_PROBE_REPETITIONS 1
+#define Z_PROBE_HEIGHT -.2
+#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
+//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
+#define Z_PROBE_FINISHED_SCRIPT ""
+#define FEATURE_AUTOLEVEL 1
+#define Z_PROBE_X1 -123.565
+#define Z_PROBE_Y1 -71.34
+#define Z_PROBE_X2 123.565
+#define Z_PROBE_Y2 -71.340
+#define Z_PROBE_X3 0
+#define Z_PROBE_Y3 142.68
+#define SDSUPPORT 1
+#define SDCARDDETECT 81
+#define SDCARDDETECTINVERTED 0
+#define FEATURE_CONTROLLER 13
+#define UI_PRINTER_NAME "RostockMAXv2"
+
+
 #elif PRINTER == 3  // ERIS Delta
+#define MOTOR_CURRENT_PWM {20, 20, 130}
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 200
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 120
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 25.0
 #define EXT0_PID_I 0.85
 #define EXT0_PID_D 176.0
 #define EXT0_PID_MAX 210
+#define MOTOR_CURRENT_PWM {20, 20, 130}
+#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
+#define MAXTEMP 240            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
+#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
+#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
+#define INVERT_X_DIR 0
+#define INVERT_Y_DIR 0
+#define INVERT_Z_DIR 0
+#define DELTA_DIAGONAL_ROD 134.9  // 134.58 early measurement
+#define DELTA_MAX_RADIUS 65  // max printable area allowed by firmware
+#define PRINTER_RADIUS 98.38  //PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET
+#define Z_MAX_LENGTH 175.0
+#define END_EFFECTOR_HORIZONTAL_OFFSET 23.38
+#define CARRIAGE_HORIZONTAL_OFFSET 10
+#define DELTASEGMENTS_PER_PRINTLINE 22
+#define STEPPER_INACTIVE_TIME 600L
+#define MAX_INACTIVE_TIME 900L
+#define MAX_FEEDRATE_X 125
+#define MAX_FEEDRATE_Y 125
+#define MAX_FEEDRATE_Z 125
+#define HOMING_FEEDRATE_X 80
+#define HOMING_FEEDRATE_Y 80
+#define HOMING_FEEDRATE_Z 80
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 250
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 250
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 250
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 400
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 400
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 400
+#define MAX_JERK 12
+#define MAX_ZJERK 12
+#define FEATURE_Z_PROBE 1
+#define Z_PROBE_SENSITIVITY  25 // 0-126 7 bit value
+#define Z_PROBE_BED_DISTANCE 20
+#define Z_PROBE_PULLUP 1 //0
+#define Z_PROBE_ON_HIGH 0 //1
+#define Z_PROBE_X_OFFSET 0
+#define Z_PROBE_Y_OFFSET 0
+#define Z_PROBE_WAIT_BEFORE_TEST 0
+#define Z_PROBE_SPEED 90
+#define Z_PROBE_XY_SPEED 50
+#define Z_PROBE_SWITCHING_DISTANCE 10
+#define Z_PROBE_REPETITIONS 1
+#define Z_PROBE_HEIGHT -.2
+#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
+//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
+#define Z_PROBE_FINISHED_SCRIPT ""
+#define FEATURE_AUTOLEVEL 1
+#define Z_PROBE_X1 -54 
+#define Z_PROBE_Y1 -31 
+#define Z_PROBE_X2  54 
+#define Z_PROBE_Y2 -31 
+#define Z_PROBE_X3   0
+#define Z_PROBE_Y3  65 
+#define UI_PRINTER_NAME "ERIS Delta"
+#define FEATURE_CONTROLLER 0
+#define HAVE_HEATED_BED 0
+
+
 #elif PRINTER == 4  // DropLit v2 bogus values to compile fw
+#define MOTOR_CURRENT_PWM {0, 50, 0}  // No need for X/Y or E motor currents
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 180
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 60
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 22.0
 #define EXT0_PID_I 0.45
 #define EXT0_PID_D 176.0
 #define EXT0_PID_MAX 200
+#define MOTOR_CURRENT_PWM {0, 50, 0}  // No need for X/Y or E motor currents
+#define MIN_EXTRUDER_TEMP 50   //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
+#define MAXTEMP 100             //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
+#define MIN_DEFECT_TEMPERATURE 18 // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
+#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
+#define DELTA_DIAGONAL_ROD 100  // 134.58 early measurement
+#define DELTA_MAX_RADIUS 100  // max printable area allowed by firmware
+#define PRINTER_RADIUS 100  //PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET
+#define Z_MAX_LENGTH 125.0
+#define END_EFFECTOR_HORIZONTAL_OFFSET 100
+#define CARRIAGE_HORIZONTAL_OFFSET 100
+#define DELTASEGMENTS_PER_PRINTLINE 22
+#define STEPPER_INACTIVE_TIME 60
+#define MAX_INACTIVE_TIME 600
+#define MAX_FEEDRATE_X 6
+#define MAX_FEEDRATE_Y 6
+#define MAX_FEEDRATE_Z 6
+#define HOMING_FEEDRATE_X 6
+#define HOMING_FEEDRATE_Y 6
+#define HOMING_FEEDRATE_Z 6
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 1000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1000
+#define MAX_JERK 12
+#define MAX_ZJERK 12
+#define FEATURE_Z_PROBE 0
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_BED_DISTANCE 20
+#define Z_PROBE_PULLUP 1 //0
+#define Z_PROBE_ON_HIGH 0 //1
+#define Z_PROBE_X_OFFSET 0
+#define Z_PROBE_Y_OFFSET 0
+#define Z_PROBE_WAIT_BEFORE_TEST 0
+#define Z_PROBE_SPEED 90
+#define Z_PROBE_XY_SPEED 50
+#define Z_PROBE_SWITCHING_DISTANCE 10
+#define Z_PROBE_REPETITIONS 1
+#define Z_PROBE_HEIGHT -.2
+#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
+//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
+#define Z_PROBE_FINISHED_SCRIPT ""
+#define FEATURE_AUTOLEVEL 1
+#define Z_PROBE_X1 0 
+#define Z_PROBE_Y1 0 
+#define Z_PROBE_X2 0
+#define Z_PROBE_Y2 0 
+#define Z_PROBE_X3 0
+#define Z_PROBE_Y3 0 
+#define UI_PRINTER_NAME "DropLit"
+#define FEATURE_CONTROLLER 0
+#define HAVE_HEATED_BED 0
+
 #elif PRINTER == 5  // Rostock MAX v3
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 180
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 80
@@ -243,14 +409,136 @@ Hacker H2 = 6
 #define EXT0_PID_I 0.73
 #define EXT0_PID_D 53.41
 #define EXT0_PID_MAX 255
+#define HAVE_HEATED_BED 1
+#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
+#define MAXTEMP 290            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
+#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
+#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
+#define INVERT_X_DIR 1
+#define INVERT_Y_DIR 1
+#define INVERT_Z_DIR 1
+#define DELTA_DIAGONAL_ROD 291.06  // ball cup arms
+#define DELTA_MAX_RADIUS 145.0
+#define PRINTER_RADIUS 200.0
+#define Z_MAX_LENGTH 375
+#define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
+#define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
+#define DELTASEGMENTS_PER_PRINTLINE 22
+#define STEPPER_INACTIVE_TIME 600L
+#define MAX_INACTIVE_TIME 900L
+#define MAX_FEEDRATE_X 250
+#define MAX_FEEDRATE_Y 250
+#define MAX_FEEDRATE_Z 250
+#define HOMING_FEEDRATE_X 80
+#define HOMING_FEEDRATE_Y 80
+#define HOMING_FEEDRATE_Z 80
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1850
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1850
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1850
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
+#define MAX_JERK 32
+#define MAX_ZJERK 32
+#define FEATURE_Z_PROBE 1
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_BED_DISTANCE 20
+#define Z_PROBE_PULLUP 1
+#define Z_PROBE_ON_HIGH 0
+#define Z_PROBE_X_OFFSET 0
+#define Z_PROBE_Y_OFFSET 0
+#define Z_PROBE_WAIT_BEFORE_TEST 0
+#define Z_PROBE_SPEED 90
+#define Z_PROBE_XY_SPEED 50
+#define Z_PROBE_SWITCHING_DISTANCE 10
+#define Z_PROBE_REPETITIONS 1
+#define Z_PROBE_HEIGHT -.2
+#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
+//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
+#define Z_PROBE_FINISHED_SCRIPT ""
+#define FEATURE_AUTOLEVEL 1
+#define Z_PROBE_X1 -123.565
+#define Z_PROBE_Y1 -71.34
+#define Z_PROBE_X2 123.565
+#define Z_PROBE_Y2 -71.340
+#define Z_PROBE_X3 0
+#define Z_PROBE_Y3 142.68
+#define SDSUPPORT 1
+#define SDCARDDETECT 81
+#define SDCARDDETECTINVERTED 0
+#define FEATURE_CONTROLLER 13
+#define UI_PRINTER_NAME "RostockMAXv3"
+
 #elif PRINTER == 6  // Hacker H2
+#define MOTOR_CURRENT_PWM {60, 60, 130}
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 180
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 80
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 14.50
 #define EXT0_PID_I 0.73
 #define EXT0_PID_D 53.41
 #define EXT0_PID_MAX 255
+#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
+#define MAXTEMP 290            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
+#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
+#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
+#define INVERT_X_DIR 1
+#define INVERT_Y_DIR 1
+#define INVERT_Z_DIR 1
+#define DELTA_DIAGONAL_ROD 178.0  // ball cup arms
+#define DELTA_MAX_RADIUS 90.0
+#define PRINTER_RADIUS 145.7
+#define Z_MAX_LENGTH 295.0
+#define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
+#define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
+#define DELTASEGMENTS_PER_PRINTLINE 22
+#define STEPPER_INACTIVE_TIME 600L
+#define MAX_INACTIVE_TIME 900L
+#define MAX_FEEDRATE_X 250
+#define MAX_FEEDRATE_Y 250
+#define MAX_FEEDRATE_Z 250
+#define HOMING_FEEDRATE_X 80
+#define HOMING_FEEDRATE_Y 80
+#define HOMING_FEEDRATE_Z 80
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1850
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1850
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1850
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
+#define MAX_JERK 32
+#define MAX_ZJERK 32
+#define FEATURE_Z_PROBE 1
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_BED_DISTANCE 20
+#define Z_PROBE_PULLUP 1
+#define Z_PROBE_ON_HIGH 0
+#define Z_PROBE_X_OFFSET 0
+#define Z_PROBE_Y_OFFSET 0
+#define Z_PROBE_WAIT_BEFORE_TEST 0
+#define Z_PROBE_SPEED 90
+#define Z_PROBE_XY_SPEED 50
+#define Z_PROBE_SWITCHING_DISTANCE 10
+#define Z_PROBE_REPETITIONS 1
+#define Z_PROBE_HEIGHT -.2
+#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
+//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
+#define Z_PROBE_FINISHED_SCRIPT ""
+#define FEATURE_AUTOLEVEL 1
+#define Z_PROBE_X1 -75.933
+#define Z_PROBE_Y1 -43.84
+#define Z_PROBE_X2 75.933
+#define Z_PROBE_Y2 -43.84
+#define Z_PROBE_X3 0
+#define Z_PROBE_Y3 87.69
+#define SDSUPPORT 1
+#define SDCARDDETECT 81
+#define SDCARDDETECTINVERTED 0
+#define UI_PRINTER_NAME "Hacker H2"
+#define HAVE_HEATED_BED 0
+#define FEATURE_CONTROLLER 13
+
 #endif
+
 
 #define EXT0_ADVANCE_K 0
 #define EXT0_ADVANCE_L 0
@@ -261,7 +549,7 @@ Hacker H2 = 6
 #define EXT0_DESELECT_COMMANDS ""
 
 #if MOTHERBOARD == 302
-#define EXT0_EXTRUDER_COOLER_PIN -1 
+#define EXT0_EXTRUDER_COOLER_PIN -1
 #else
 #define EXT0_EXTRUDER_COOLER_PIN 7
 #endif
@@ -318,11 +606,6 @@ Hacker H2 = 6
 #define HEATER_PWM_SPEED 0
 
 // ############# Heated bed configuration ########################
-#if PRINTER == 2  || PRINTER == 5// ORION and Rostock MAX's
-#define HAVE_HEATED_BED 1
-#else
-#define HAVE_HEATED_BED 0  // ERIS and DropLit have no heated beds
-#endif
 #define HEATED_BED_MAX_TEMP 120
 #define SKIP_M190_IF_WITHIN 5
 #define HEATED_BED_SENSOR_TYPE 97
@@ -338,44 +621,6 @@ Hacker H2 = 6
 #define HEATED_BED_PID_MAX 255
 #define HEATED_BED_DECOUPLE_TEST_PERIOD 300000
 
-
-// ############## Hotend safety settings ######################
-/* Orion = 1
-   Rostock Max V2 = 2
-   ERIS = 3
-   DROPLIT = 4
-   Rostock MAX v3 = 5
- */
-#if PRINTER == 2  // Rostock MAX w/PEEK hotend
-#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
-#define MAXTEMP 245            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
-#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
-#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
-
-#elif PRINTER == 3  // ERIS Delta w/HE280 hotend BUT limited in temp due to cold end cooling
-#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
-#define MAXTEMP 240            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
-#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
-#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
-
-#elif PRINTER == 4  // DropLit so just useless numbers
-#define MIN_EXTRUDER_TEMP 50   //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
-#define MAXTEMP 100             //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
-#define MIN_DEFECT_TEMPERATURE 18 // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
-#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
-
-#elif PRINTER == 5  // Rostock MAX v3 w/HE280
-#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
-#define MAXTEMP 290            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
-#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
-#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
-
-#elif PRINTER == 6  // Hacker H2
-#define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
-#define MAXTEMP 290            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
-#define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
-#define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
-#endif
 
 // ################ Endstop configuration #####################
 
@@ -450,22 +695,6 @@ Hacker H2 = 6
 #define DISABLE_E 0
 
 // ######   Inverting Axis Settings for Orion/Rostock MAX v2/DropLit
-#if PRINTER == 1 || PRINTER ==4
-#define INVERT_X_DIR 1
-// need to invert Y axis for newer PSU Orions
-#define INVERT_Y_DIR 0
-#define INVERT_Z_DIR 1
-// ERIS Delta
-#elif PRINTER == 3
-#define INVERT_X_DIR 0
-#define INVERT_Y_DIR 0
-#define INVERT_Z_DIR 0
-// Rostock MAX v3
-#elif PRINTER == 5
-#define INVERT_X_DIR 1
-#define INVERT_Y_DIR 1
-#define INVERT_Z_DIR 1
-#endif
 
 #define X_HOME_DIR 1
 #define Y_HOME_DIR 1
@@ -495,48 +724,6 @@ Hacker H2 = 6
 #define DELTA_SEGMENTS_PER_SECOND_PRINT 200 // Move accurate setting for print moves
 #define DELTA_SEGMENTS_PER_SECOND_MOVE 80 // Less accurate setting for other moves
 
-// Delta settings
-#if PRINTER == 2  // Rostock MAX v2
-#define DELTA_DIAGONAL_ROD 291.06  // ball cup arms
-#define DELTA_MAX_RADIUS 145.0
-#define PRINTER_RADIUS 200.0
-#define Z_MAX_LENGTH 350
-#define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
-#define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
-
-#elif PRINTER == 3 // Eris Delta
-#define DELTA_DIAGONAL_ROD 134.9  // 134.58 early measurement
-#define DELTA_MAX_RADIUS 65  // max printable area allowed by firmware
-#define PRINTER_RADIUS 98.38  //PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET
-#define Z_MAX_LENGTH 175.0
-#define END_EFFECTOR_HORIZONTAL_OFFSET 23.38
-#define CARRIAGE_HORIZONTAL_OFFSET 10
-
-#elif PRINTER == 4 // DropLit
-#define DELTA_DIAGONAL_ROD 100  // 134.58 early measurement
-#define DELTA_MAX_RADIUS 100  // max printable area allowed by firmware
-#define PRINTER_RADIUS 100  //PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET
-#define Z_MAX_LENGTH 125.0
-#define END_EFFECTOR_HORIZONTAL_OFFSET 100
-#define CARRIAGE_HORIZONTAL_OFFSET 100
-
-#elif PRINTER == 5  // Rostock MAX v3
-#define DELTA_DIAGONAL_ROD 291.06  // ball cup arms
-#define DELTA_MAX_RADIUS 145.0
-#define PRINTER_RADIUS 200.0
-#define Z_MAX_LENGTH 375
-#define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
-#define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
-
-#elif PRINTER == 6 // Hacker H2
-#define DELTA_DIAGONAL_ROD 178.0  // ball cup arms
-#define DELTA_MAX_RADIUS 90.0
-#define PRINTER_RADIUS 145.7
-#define Z_MAX_LENGTH 295.0
-#define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
-#define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
-#endif
-
 #define DELTA_ALPHA_A 210
 #define DELTA_ALPHA_B 330
 #define DELTA_ALPHA_C 90
@@ -553,60 +740,6 @@ Hacker H2 = 6
 #define DELTA_Y_ENDSTOP_OFFSET_STEPS 0
 #define DELTA_Z_ENDSTOP_OFFSET_STEPS 0
 #define DELTA_FLOOR_SAFETY_MARGIN_MM 15
-//#define SOFTWARE_LEVELING
-
-#if PRINTER == 2  //  Rostock MAX v2
-#define DELTASEGMENTS_PER_PRINTLINE 22
-#define STEPPER_INACTIVE_TIME 600L
-#define MAX_INACTIVE_TIME 900L
-#define MAX_FEEDRATE_X 250
-#define MAX_FEEDRATE_Y 250
-#define MAX_FEEDRATE_Z 250
-#define HOMING_FEEDRATE_X 80
-#define HOMING_FEEDRATE_Y 80
-#define HOMING_FEEDRATE_Z 80
-#elif PRINTER == 3  //  ERIS Delta
-#define DELTASEGMENTS_PER_PRINTLINE 22
-#define STEPPER_INACTIVE_TIME 600L
-#define MAX_INACTIVE_TIME 900L
-#define MAX_FEEDRATE_X 125
-#define MAX_FEEDRATE_Y 125
-#define MAX_FEEDRATE_Z 125
-#define HOMING_FEEDRATE_X 80
-#define HOMING_FEEDRATE_Y 80
-#define HOMING_FEEDRATE_Z 80
-#elif PRINTER == 4  // DropLit
-#define DELTASEGMENTS_PER_PRINTLINE 22
-#define STEPPER_INACTIVE_TIME 60
-#define MAX_INACTIVE_TIME 600
-#define MAX_FEEDRATE_X 6
-#define MAX_FEEDRATE_Y 6
-#define MAX_FEEDRATE_Z 6
-#define HOMING_FEEDRATE_X 6
-#define HOMING_FEEDRATE_Y 6
-#define HOMING_FEEDRATE_Z 6
-#elif PRINTER == 5  //  Rostock MAX v3
-#define DELTASEGMENTS_PER_PRINTLINE 22
-#define STEPPER_INACTIVE_TIME 600L
-#define MAX_INACTIVE_TIME 900L
-#define MAX_FEEDRATE_X 250
-#define MAX_FEEDRATE_Y 250
-#define MAX_FEEDRATE_Z 250
-#define HOMING_FEEDRATE_X 80
-#define HOMING_FEEDRATE_Y 80
-#define HOMING_FEEDRATE_Z 80
-#elif PRINTER == 6  //  Hacker H2
-#define DELTASEGMENTS_PER_PRINTLINE 22
-#define STEPPER_INACTIVE_TIME 600L
-#define MAX_INACTIVE_TIME 900L
-#define MAX_FEEDRATE_X 250
-#define MAX_FEEDRATE_Y 250
-#define MAX_FEEDRATE_Z 250
-#define HOMING_FEEDRATE_X 80
-#define HOMING_FEEDRATE_Y 80
-#define HOMING_FEEDRATE_Z 80
-#endif
-
 
 #define HOMING_ORDER HOME_ORDER_ZXY
 #define ENABLE_BACKLASH_COMPENSATION 0
@@ -620,54 +753,6 @@ Hacker H2 = 6
 #define ALLOW_QUADSTEPPING 1
 #define DOUBLE_STEP_DELAY 1 // time in microseconds
 #define MAX_HALFSTEP_INTERVAL 1999
-
-#if PRINTER == 2  //Rostock MAX v2
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1850
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1850
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1850
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
-#define MAX_JERK 32
-#define MAX_ZJERK 32
-#elif PRINTER == 3 // ERIS Delta
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 250
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 250
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 250
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 400
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 400
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 400
-#define MAX_JERK 12
-#define MAX_ZJERK 12
-#elif PRINTER == 4 // DropLit
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 1000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1000
-#define MAX_JERK 12
-#define MAX_ZJERK 12
-#elif PRINTER == 5  //Rostock MAX v3
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1850
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1850
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1850
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
-#define MAX_JERK 32
-#define MAX_ZJERK 32
-#elif PRINTER == 6  //Hacker H2
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1850
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1850
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1850
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
-#define MAX_JERK 32
-#define MAX_ZJERK 32
-#endif
-
 
 #define PRINTLINE_CACHE_SIZE 16
 #define MOVE_CACHE_LOW 10
@@ -732,163 +817,12 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define Z_PROBE_TOLERANCE .1
 #define Z_PROBE_MAX_SENSITIVITY 40
 
-#if PRINTER == 2  // Rostock MAX v2 w/ molded carriages and ball cup arms
-#define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
-#define Z_PROBE_BED_DISTANCE 20
-#define Z_PROBE_PULLUP 1
-#define Z_PROBE_ON_HIGH 0
-#define Z_PROBE_X_OFFSET 0
-#define Z_PROBE_Y_OFFSET 0
-#define Z_PROBE_WAIT_BEFORE_TEST 0
-#define Z_PROBE_SPEED 60
-#define Z_PROBE_XY_SPEED 50
-#define Z_PROBE_SWITCHING_DISTANCE 10
-#define Z_PROBE_REPETITIONS 1
-#define Z_PROBE_HEIGHT -.2
-#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
-//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
-#define Z_PROBE_FINISHED_SCRIPT ""
-#define FEATURE_AUTOLEVEL 1
-
-#elif PRINTER == 3  // ERIS Delta
-#define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  25 // 0-126 7 bit value
-#define Z_PROBE_BED_DISTANCE 20
-#define Z_PROBE_PULLUP 1 //0
-#define Z_PROBE_ON_HIGH 0 //1
-#define Z_PROBE_X_OFFSET 0
-#define Z_PROBE_Y_OFFSET 0
-#define Z_PROBE_WAIT_BEFORE_TEST 0
-#define Z_PROBE_SPEED 90
-#define Z_PROBE_XY_SPEED 50
-#define Z_PROBE_SWITCHING_DISTANCE 10
-#define Z_PROBE_REPETITIONS 1
-#define Z_PROBE_HEIGHT -.2
-#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
-//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
-#define Z_PROBE_FINISHED_SCRIPT ""
-#define FEATURE_AUTOLEVEL 1
-
-#elif PRINTER == 4  // DropLit doesn't have a probe yet ;)
-#define FEATURE_Z_PROBE 0
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
-#define Z_PROBE_BED_DISTANCE 20
-#define Z_PROBE_PULLUP 1 //0
-#define Z_PROBE_ON_HIGH 0 //1
-#define Z_PROBE_X_OFFSET 0
-#define Z_PROBE_Y_OFFSET 0
-#define Z_PROBE_WAIT_BEFORE_TEST 0
-#define Z_PROBE_SPEED 90
-#define Z_PROBE_XY_SPEED 50
-#define Z_PROBE_SWITCHING_DISTANCE 10
-#define Z_PROBE_REPETITIONS 1
-#define Z_PROBE_HEIGHT -.2
-#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
-//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
-#define Z_PROBE_FINISHED_SCRIPT ""
-#define FEATURE_AUTOLEVEL 1
-
-#elif PRINTER == 5  // Rostock MAX v3
-#define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
-#define Z_PROBE_BED_DISTANCE 20
-#define Z_PROBE_PULLUP 1
-#define Z_PROBE_ON_HIGH 0
-#define Z_PROBE_X_OFFSET 0
-#define Z_PROBE_Y_OFFSET 0
-#define Z_PROBE_WAIT_BEFORE_TEST 0
-#define Z_PROBE_SPEED 90
-#define Z_PROBE_XY_SPEED 50
-#define Z_PROBE_SWITCHING_DISTANCE 10
-#define Z_PROBE_REPETITIONS 1
-#define Z_PROBE_HEIGHT -.2
-#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
-//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
-#define Z_PROBE_FINISHED_SCRIPT ""
-#define FEATURE_AUTOLEVEL 1
-
-#elif PRINTER == 6  // Hacker H2
-#define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
-#define Z_PROBE_BED_DISTANCE 20
-#define Z_PROBE_PULLUP 1
-#define Z_PROBE_ON_HIGH 0
-#define Z_PROBE_X_OFFSET 0
-#define Z_PROBE_Y_OFFSET 0
-#define Z_PROBE_WAIT_BEFORE_TEST 0
-#define Z_PROBE_SPEED 90
-#define Z_PROBE_XY_SPEED 50
-#define Z_PROBE_SWITCHING_DISTANCE 10
-#define Z_PROBE_REPETITIONS 1
-#define Z_PROBE_HEIGHT -.2
-#define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
-//#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
-#define Z_PROBE_FINISHED_SCRIPT ""
-#define FEATURE_AUTOLEVEL 1
-#endif
-
-// ##############  Z Probe X/Y coordinates for endstop offsets and radius comp uses the Z_PROBE_Y3 coordinate ############
-
-#if PRINTER == 2  //  Rostock MAX with modled carriagges AND ball cup arms
-#define Z_PROBE_X1 -123.565
-#define Z_PROBE_Y1 -71.34
-#define Z_PROBE_X2 123.565
-#define Z_PROBE_Y2 -71.340
-#define Z_PROBE_X3 0
-#define Z_PROBE_Y3 142.68
-
-#elif PRINTER == 3  //  ERIS Delta
-#define Z_PROBE_X1 -54 
-#define Z_PROBE_Y1 -31 
-#define Z_PROBE_X2  54 
-#define Z_PROBE_Y2 -31 
-#define Z_PROBE_X3   0
-#define Z_PROBE_Y3  65 
-
-#elif PRINTER == 4  //  DROPLIT false values for firmware to compile
-#define Z_PROBE_X1 0 
-#define Z_PROBE_Y1 0 
-#define Z_PROBE_X2 0
-#define Z_PROBE_Y2 0 
-#define Z_PROBE_X3 0
-#define Z_PROBE_Y3 0 
-
-#elif PRINTER == 5  //  Rostock MAX v3
-#define Z_PROBE_X1 -123.565
-#define Z_PROBE_Y1 -71.34
-#define Z_PROBE_X2 123.565
-#define Z_PROBE_Y2 -71.340
-#define Z_PROBE_X3 0
-#define Z_PROBE_Y3 142.68
-
-#elif PRINTER == 6  //  Hacker H2
-#define Z_PROBE_X1 -75.933
-#define Z_PROBE_Y1 -43.84
-#define Z_PROBE_X2 75.933
-#define Z_PROBE_Y2 -43.84
-#define Z_PROBE_X3 0
-#define Z_PROBE_Y3 87.69
-#endif
-
-
 #define FEATURE_AXISCOMP 0
 #define AXISCOMP_TANXY 0
 #define AXISCOMP_TANYZ 0
 #define AXISCOMP_TANXZ 0
 
 // ##############  SD Card Settings  #########################
-
-
-#ifndef SDSUPPORT 
-#if PRINTER == 1 || PRINTER == 2 || PRINTER == 5 || PRINTER == 6
-#define SDSUPPORT 1
-#else
-#define SDSUPPORT 0
-#endif
-#define SDCARDDETECT 81
-#define SDCARDDETECTINVERTED 0
-#endif
 
 #define SD_EXTENDED_DIR 1 /** Show extended directory including file length. Don't use this with Pronterface! */
 #define SD_RUN_ON_STOP ""
@@ -897,24 +831,8 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define FEATURE_MEMORY_POSITION 1
 #define FEATURE_CHECKSUM_FORCED 0
 #define FEATURE_FAN_CONTROL 1
-#if PRINTER == 1 || PRINTER == 2 || PRINTER == 5
-#define FEATURE_CONTROLLER 13
-#else
-#define FEATURE_CONTROLLER 0
-#endif
 #define UI_LANGUAGE 1000 // 1000 = User defined language in v92+
 #define UI_PRINTER_COMPANY "SeeMeCNC"
-#if PRINTER == 2
-#define UI_PRINTER_NAME "RostockMAXv2"
-#elif PRINTER == 3
-#define UI_PRINTER_NAME "ERIS Delta"
-#elif PRINTER == 4
-#define UI_PRINTER_NAME "DropLit"
-#elif PRINTER == 5
-#define UI_PRINTER_NAME "RostockMAXv3"
-#elif PRINTER == 6
-#define UI_PRINTER_NAME "Hacker H2"
-#endif
 
 #define UI_ENCODER_DIR 1 // 0 normal 1 inverts encoder direction
 #define UI_PAGES_DURATION 4000
@@ -938,8 +856,7 @@ and longer beeps for important actions.
 Parameter is delay in microseconds and the secons is the number of repetitions.
 Values must be in range 1..255
 */
-// Orion Delta
-#if PRINTER == 2
+#if PRINTER != 4
 #define BEEPER_SHORT_SEQUENCE 1,1
 #define BEEPER_LONG_SEQUENCE 32,4
 #define UI_SET_PRESET_HEATED_BED_TEMP_PLA 60
@@ -950,62 +867,6 @@ Values must be in range 1..255
 #define UI_SET_MAX_HEATED_BED_TEMP 120
 #define UI_SET_MIN_EXTRUDER_TEMP   150
 #define UI_SET_MAX_EXTRUDER_TEMP   240
-#define UI_SET_EXTRUDER_FEEDRATE 2
-#define UI_SET_EXTRUDER_RETRACT_DISTANCE 3
-//ERIS Delta
-#elif PRINTER == 3
-#define BEEPER_SHORT_SEQUENCE 1,1
-#define BEEPER_LONG_SEQUENCE 32,4
-#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 60
-#define UI_SET_PRESET_EXTRUDER_TEMP_PLA   180
-#define UI_SET_PRESET_HEATED_BED_TEMP_ABS 100
-#define UI_SET_PRESET_EXTRUDER_TEMP_ABS   200
-#define UI_SET_MIN_HEATED_BED_TEMP  30
-#define UI_SET_MAX_HEATED_BED_TEMP 120
-#define UI_SET_MIN_EXTRUDER_TEMP   150
-#define UI_SET_MAX_EXTRUDER_TEMP   240
-#define UI_SET_EXTRUDER_FEEDRATE 2
-#define UI_SET_EXTRUDER_RETRACT_DISTANCE 3
-#elif PRINTER == 4
-//DropLit v2
-#define BEEPER_SHORT_SEQUENCE 1,1
-#define BEEPER_LONG_SEQUENCE 32,4
-#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 60
-#define UI_SET_PRESET_EXTRUDER_TEMP_PLA   180
-#define UI_SET_PRESET_HEATED_BED_TEMP_ABS 100
-#define UI_SET_PRESET_EXTRUDER_TEMP_ABS   200
-#define UI_SET_MIN_HEATED_BED_TEMP  30
-#define UI_SET_MAX_HEATED_BED_TEMP 120
-#define UI_SET_MIN_EXTRUDER_TEMP   150
-#define UI_SET_MAX_EXTRUDER_TEMP   240
-#define UI_SET_EXTRUDER_FEEDRATE 2
-#define UI_SET_EXTRUDER_RETRACT_DISTANCE 3
-//Rostock MAX v3
-#elif PRINTER == 5
-#define BEEPER_SHORT_SEQUENCE 1,1
-#define BEEPER_LONG_SEQUENCE 32,4
-#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 60
-#define UI_SET_PRESET_EXTRUDER_TEMP_PLA   180
-#define UI_SET_PRESET_HEATED_BED_TEMP_ABS 100
-#define UI_SET_PRESET_EXTRUDER_TEMP_ABS   200
-#define UI_SET_MIN_HEATED_BED_TEMP  30
-#define UI_SET_MAX_HEATED_BED_TEMP 120
-#define UI_SET_MIN_EXTRUDER_TEMP   100
-#define UI_SET_MAX_EXTRUDER_TEMP   280
-#define UI_SET_EXTRUDER_FEEDRATE 2
-#define UI_SET_EXTRUDER_RETRACT_DISTANCE 3
-//Hacker H2
-#elif PRINTER == 6
-#define BEEPER_SHORT_SEQUENCE 1,1
-#define BEEPER_LONG_SEQUENCE 32,4
-#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 60
-#define UI_SET_PRESET_EXTRUDER_TEMP_PLA   180
-#define UI_SET_PRESET_HEATED_BED_TEMP_ABS 100
-#define UI_SET_PRESET_EXTRUDER_TEMP_ABS   200
-#define UI_SET_MIN_HEATED_BED_TEMP  30
-#define UI_SET_MAX_HEATED_BED_TEMP 120
-#define UI_SET_MIN_EXTRUDER_TEMP   100
-#define UI_SET_MAX_EXTRUDER_TEMP   280
 #define UI_SET_EXTRUDER_FEEDRATE 2
 #define UI_SET_EXTRUDER_RETRACT_DISTANCE 3
 #endif
