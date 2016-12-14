@@ -9,11 +9,11 @@ Rostock MAX v3 = 5
 Hacker H2 = 6
 */
 // ### Define your Printer Model here! ###
-#define PRINTER 6
+#define PRINTER 5
 
 // ### Define your motherboard here! ###
 // 301 = RAMBo    302 = MINI RAMBo
-#define MOTHERBOARD 302
+#define MOTHERBOARD 301
 
 // ##### Older Orions w/ATX had Y inverted and NEW PSU on orions needs opposite ###
 // 1 = ATX on older machines  2 = Rail style PSU on newer machines ############################
@@ -50,29 +50,17 @@ Hacker H2 = 6
 #define MICROSTEP_MODES {16,16,16,16,16} // 1,2,4,8,16
 #if MOTHERBOARD == 301  // RAMBo
 #define STEPPER_CURRENT_CONTROL CURRENT_CONTROL_DIGIPOT
+#define MOTOR_CURRENT {140,140,140,130,0}
 #elif MOTHERBOARD == 302  // Mini RAMBo
 #define STEPPER_CURRENT_CONTROL CURRENT_CONTROL_PWM
+#define MOTOR_CURRENT_PWM_RANGE 2000
 #endif
 
-// ################## RAMBo Digipot Motor current control settings ################
-// Values 0-255 (RAMBO 135 = ~0.75A, 185 = ~1A)
-// use 140 for xyz and 130 for the E if using Kysan/AutomationTechnology motors and 175 xyz and 200 if using wantai motors
-#define MOTOR_CURRENT {140,140,140,130,0}
-
-//################### Mini Rambo etc... motor current settings    #########
-//  Motor PWM current for mini rambo is X+Y on the same first value, Z on the next, then Extruder(s) on the last value
-// The MINI Rambo is used on all ERIS, DropLit v2 and newer Orions built after appx may 2016
-#define MOTOR_CURRENT_PWM_RANGE 2000
-//#define DEFAULT_PWM_MOTOR_CURRENT  {30, 30, 130}  // X+Y, Z, E+
 
 // ################ END MANUAL SETTINGS ##########################
 
 #define FAN_BOARD_PIN 6  // ERIS Case Fan pin
 
-//#define EXTERNALSERIAL  use Arduino serial library instead of build in. Requires more ram, has only 63 byte input buffer.
-// Uncomment the following line if you are using arduino compatible firmware made for Arduino version earlier then 1.0
-// If it is incompatible you will get compiler errors about write functions not beeing compatible!
-//#define COMPAT_PRE1
 #define MIXING_EXTRUDER 0
 #define DRIVE_SYSTEM 3
 #define BELT_PITCH 2
