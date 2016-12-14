@@ -1,6 +1,5 @@
 /*
 Printer Model List as used throughout this firmware
-
 Orion = 1
 Rostock Max V2 = 2
 ERIS = 3
@@ -27,13 +26,11 @@ Hacker H2 = 6
 
 
 
-
 // ############################################################################################
 // ############ FW version info and build date for LCD and M115 string! #######################
 // ############################################################################################
 #define REPETIER_VERSION "0.92.2"
 #define FIRMWARE_DATE "20161214" // in date format yyyymmdd
-
 
 
 
@@ -50,7 +47,6 @@ Hacker H2 = 6
 #define MICROSTEP_MODES {16,16,16,16,16} // 1,2,4,8,16
 #if MOTHERBOARD == 301  // RAMBo
 #define STEPPER_CURRENT_CONTROL CURRENT_CONTROL_DIGIPOT
-#define MOTOR_CURRENT {140,140,140,130,0}
 #elif MOTHERBOARD == 302  // Mini RAMBo
 #define STEPPER_CURRENT_CONTROL CURRENT_CONTROL_PWM
 #define MOTOR_CURRENT_PWM_RANGE 2000
@@ -59,7 +55,6 @@ Hacker H2 = 6
 
 // ################ END MANUAL SETTINGS ##########################
 
-#define FAN_BOARD_PIN 6  // ERIS Case Fan pin
 
 #define MIXING_EXTRUDER 0
 #define DRIVE_SYSTEM 3
@@ -152,7 +147,7 @@ Hacker H2 = 6
 #define MAX_JERK 28
 #define MAX_ZJERK 28
 #define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value
 #define Z_PROBE_BED_DISTANCE 20
 #define Z_PROBE_PULLUP 1 //0
 #define Z_PROBE_ON_HIGH 0 //1
@@ -184,7 +179,7 @@ Hacker H2 = 6
 #define SDCARDDETECTINVERTED 0
 
 #elif PRINTER == 2 // Rostock MAX v2
-
+#define MOTOR_CURRENT {140,140,140,130,0}
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 180
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 80
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 14.50
@@ -223,7 +218,7 @@ Hacker H2 = 6
 #define MAX_JERK 32
 #define MAX_ZJERK 32
 #define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value
 #define Z_PROBE_BED_DISTANCE 20
 #define Z_PROBE_PULLUP 1
 #define Z_PROBE_ON_HIGH 0
@@ -308,12 +303,12 @@ Hacker H2 = 6
 //#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
 #define Z_PROBE_FINISHED_SCRIPT ""
 #define FEATURE_AUTOLEVEL 1
-#define Z_PROBE_X1 -54 
-#define Z_PROBE_Y1 -31 
-#define Z_PROBE_X2  54 
-#define Z_PROBE_Y2 -31 
+#define Z_PROBE_X1 -54
+#define Z_PROBE_Y1 -31
+#define Z_PROBE_X2  54
+#define Z_PROBE_Y2 -31
 #define Z_PROBE_X3   0
-#define Z_PROBE_Y3  65 
+#define Z_PROBE_Y3  65
 #define UI_PRINTER_NAME "ERIS Delta"
 #define FEATURE_CONTROLLER 0
 #define HAVE_HEATED_BED 0
@@ -356,7 +351,7 @@ Hacker H2 = 6
 #define MAX_JERK 12
 #define MAX_ZJERK 12
 #define FEATURE_Z_PROBE 0
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value
 #define Z_PROBE_BED_DISTANCE 20
 #define Z_PROBE_PULLUP 1 //0
 #define Z_PROBE_ON_HIGH 0 //1
@@ -372,17 +367,19 @@ Hacker H2 = 6
 //#define Z_PROBE_START_SCRIPT "M117 Probe Started/n"
 #define Z_PROBE_FINISHED_SCRIPT ""
 #define FEATURE_AUTOLEVEL 1
-#define Z_PROBE_X1 0 
-#define Z_PROBE_Y1 0 
+#define Z_PROBE_X1 0
+#define Z_PROBE_Y1 0
 #define Z_PROBE_X2 0
-#define Z_PROBE_Y2 0 
+#define Z_PROBE_Y2 0
 #define Z_PROBE_X3 0
-#define Z_PROBE_Y3 0 
+#define Z_PROBE_Y3 0
 #define UI_PRINTER_NAME "DropLit"
 #define FEATURE_CONTROLLER 0
 #define HAVE_HEATED_BED 0
 
 #elif PRINTER == 5  // Rostock MAX v3
+#define FAN_BOARD_PIN 6  // ERIS Case Fan pin
+#define MOTOR_CURRENT {140,140,140,130,0}
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 180
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 80
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 14.50
@@ -421,7 +418,7 @@ Hacker H2 = 6
 #define MAX_JERK 32
 #define MAX_ZJERK 32
 #define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value
 #define Z_PROBE_BED_DISTANCE 20
 #define Z_PROBE_PULLUP 1
 #define Z_PROBE_ON_HIGH 0
@@ -488,7 +485,7 @@ Hacker H2 = 6
 #define MAX_JERK 32
 #define MAX_ZJERK 32
 #define FEATURE_Z_PROBE 1
-#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value  
+#define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value
 #define Z_PROBE_BED_DISTANCE 20
 #define Z_PROBE_PULLUP 1
 #define Z_PROBE_ON_HIGH 0
