@@ -454,7 +454,7 @@ Hacker H2 = 6
 #define INVERT_Z_DIR 1
 #define DELTA_DIAGONAL_ROD 178.0  // ball cup arms
 #define DELTA_MAX_RADIUS 90.0
-#define PRINTER_RADIUS 145.7
+#define PRINTER_RADIUS 155.0
 #define Z_MAX_LENGTH 295.0
 #define END_EFFECTOR_HORIZONTAL_OFFSET 30.22
 #define CARRIAGE_HORIZONTAL_OFFSET 26.5  // molded cheapskates
