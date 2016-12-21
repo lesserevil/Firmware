@@ -1131,51 +1131,50 @@ void Commands::processGCode(GCode *com)
         Printer::feedrate = oldFeedrate;
         Printer::homeAxis(true,true,true);
       }else{
-#if PRINTER == 3
-        Printer::maxTravelAccelerationMMPerSquareSecond[Z_AXIS] = 1850;
-        Printer::updateDerivedParameter();
-#endif
-        float pProbe, verify;
-        int32_t probeSensitivity = Z_PROBE_SENSITIVITY;
-        if(com->hasX() && com->hasY()){
-          if(com->hasF()){ Printer::moveTo(com->X,com->Y,IGNORE_COORDINATE,IGNORE_COORDINATE,com->F); }
-          else{ Printer::moveTo(com->X,com->Y,IGNORE_COORDINATE,IGNORE_COORDINATE,EEPROM::zProbeXYSpeed()); }
-        }
-        pProbe = Printer::runZProbe(true,false,1,false);
-        pProbe -= Printer::currentPosition[Z_AXIS];
-        verify = Printer::runZProbe(false,true,1,false);
-        verify -= Printer::currentPosition[Z_AXIS];
-        if ((pProbe - verify) > Z_PROBE_TOLERANCE || (pProbe - verify) < - Z_PROBE_TOLERANCE){
-          Com::printFLN(PSTR("Probes do not match. Off by "), (pProbe - verify) );
-          if(probeSensitivity < Z_PROBE_MAX_SENSITIVITY){
-            accelerometer_recv(0x32);
-            probeSensitivity+=2;
-            Com::printFLN(PSTR("Setting Probe Sensitivity To:"), probeSensitivity );
-            accelerometer_write(0x32,uint8_t(probeSensitivity)); //INT1 THRESHOLD
-            accelerometer_write(0x3A,uint8_t(probeSensitivity)); //CLICK THRESHOLD
-            accelerometer_recv(0x32);
-            GCode::executeFString(PSTR("G30"));
+        if(com->hasP() && com->P >= 10){
+          for(int i=0;i<10;i++){
+            Com::printF(PSTR("Point "), i);
+            Com::printFLN(PSTR(" - PROBE OFFSET:"), probes[i] );
           }
         }else{
-          pProbe = (pProbe + verify) /2;
-          if(com->hasP()){
-            if(com->P < 10){
-              probes[com->P] = pProbe;
-            }else{
-              for(int i=0;i<10;i++){
-                Com::print(PSTR("Point "));
-                Com::printF(i);
-                Com::printFLN(PSTR(" - PROBE OFFSET:"), pProbe );
-              }
+#if PRINTER == 3
+          Printer::maxTravelAccelerationMMPerSquareSecond[Z_AXIS] = 1850;
+          Printer::updateDerivedParameter();
+#endif
+          float pProbe, verify;
+          int32_t probeSensitivity = Z_PROBE_SENSITIVITY;
+          if(com->hasX() && com->hasY()){
+            if(com->hasF()){ Printer::moveTo(com->X,com->Y,IGNORE_COORDINATE,IGNORE_COORDINATE,com->F); }
+            else{ Printer::moveTo(com->X,com->Y,IGNORE_COORDINATE,IGNORE_COORDINATE,EEPROM::zProbeXYSpeed()); }
+          }
+          pProbe = Printer::runZProbe(true,false,1,false);
+          pProbe -= Printer::currentPosition[Z_AXIS];
+          verify = Printer::runZProbe(false,true,1,false);
+          verify -= Printer::currentPosition[Z_AXIS];
+          if ((pProbe - verify) > Z_PROBE_TOLERANCE || (pProbe - verify) < - Z_PROBE_TOLERANCE){
+            Com::printFLN(PSTR("Probes do not match. Off by "), (pProbe - verify) );
+            if(probeSensitivity < Z_PROBE_MAX_SENSITIVITY){
+              accelerometer_recv(0x32);
+              probeSensitivity+=2;
+              Com::printFLN(PSTR("Setting Probe Sensitivity To:"), probeSensitivity );
+              accelerometer_write(0x32,uint8_t(probeSensitivity)); //INT1 THRESHOLD
+              accelerometer_write(0x3A,uint8_t(probeSensitivity)); //CLICK THRESHOLD
+              accelerometer_recv(0x32);
+              GCode::executeFString(PSTR("G30"));
             }
           }else{
-            Com::printFLN(PSTR("PROBE-ZOFFSET:"), pProbe );
+            pProbe = (pProbe + verify) / 2;
+            if(com->hasP()){
+              if(com->P < 10){ probes[com->P] = pProbe; }
+            }else{
+              Com::printFLN(PSTR("PROBE-ZOFFSET:"), pProbe );
+            }
           }
-        }
 #if PRINTER == 3
-        Printer::maxTravelAccelerationMMPerSquareSecond[Z_AXIS] = 400;
-        Printer::updateDerivedParameter();
+          Printer::maxTravelAccelerationMMPerSquareSecond[Z_AXIS] = 400;
+          Printer::updateDerivedParameter();
 #endif
+        }
       }
     }
     break;
