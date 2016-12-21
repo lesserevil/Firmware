@@ -9,7 +9,7 @@ Rostock MAX v3 = 5
 Hacker Series H2 = 6
 */
 // ### Define your Printer Model here! ###
-#define PRINTER 5
+#define PRINTER 1
 
 // ### Define your motherboard here! ###
 // 301 = RAMBo    302 = MINI RAMBo
@@ -17,7 +17,7 @@ Hacker Series H2 = 6
 
 // ### Older Orions and v2 Rostock MAX w/ATX had Y inverted and NEW PSU  needs opposite     ###
 // 1 = ATX on older machines  2 = Rail style PSU on newer machines ############################
-#define POWER_SUPPLY 2
+#define POWER_SUPPLY 1
 
 // ############################################################################################
 // ################# BASIC CONFIGURATION IS ALL DONE ABOVE HERE ###############################
@@ -90,12 +90,12 @@ Hacker Series H2 = 6
 #define EXT0_PID_D 53.41
 #define EXT0_PID_MAX 235
 #define MIN_EXTRUDER_TEMP 150  //  this is the minimum temperature that will allow the extruder to drive filament, lower and it will ignore extruder commands
-#define MAXTEMP 245            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
+#define MAXTEMP 285            //  this is the max allowable temp the hotend can be set at, any higher will trigger safety's
 #define MIN_DEFECT_TEMPERATURE 18  // this is the min temp that will allow the hotend to start heating.  Below this it will show as defective to help identify bad thermistors
 #define MAX_DEFECT_TEMPERATURE 300 // this is the max temp that wthe printer will throw errors about defective thermistors
 #define INVERT_X_DIR 1
 #define INVERT_Z_DIR 1
-#define DELTA_DIAGONAL_ROD 178.0  // ball cup arms
+#define DELTA_DIAGONAL_ROD 176.5  // older 'blue' arms
 #define DELTA_MAX_RADIUS 90
 #define PRINTER_RADIUS 145.7
 #define Z_MAX_LENGTH 230.0
@@ -123,24 +123,24 @@ Hacker Series H2 = 6
 #define Z_PROBE_SENSITIVITY  20 // 0-126 7 bit value
 #define Z_PROBE_BED_DISTANCE 20
 #define Z_PROBE_PULLUP 1 //0
-#define Z_PROBE_ON_HIGH 0 //1
+#define Z_PROBE_ON_HIGH 1 //0
 #define Z_PROBE_X_OFFSET 0
 #define Z_PROBE_Y_OFFSET 0
 #define Z_PROBE_WAIT_BEFORE_TEST 0
 #define Z_PROBE_SPEED 60
 #define Z_PROBE_XY_SPEED 50
 #define Z_PROBE_SWITCHING_DISTANCE 10
-#define Z_PROBE_REPETITIONS 1
-#define Z_PROBE_HEIGHT -.2
+#define Z_PROBE_REPETITIONS 5
+#define Z_PROBE_HEIGHT 39.91
 #define Z_PROBE_START_SCRIPT "G28/nG1Z25/n"
 #define Z_PROBE_FINISHED_SCRIPT ""
 #define FEATURE_AUTOLEVEL 1
-#define Z_PROBE_X1 -75.933
-#define Z_PROBE_Y1 -43.84
-#define Z_PROBE_X2 75.933
-#define Z_PROBE_Y2 -43.84
+#define Z_PROBE_X1 -62.79
+#define Z_PROBE_Y1 -36.25
+#define Z_PROBE_X2 62.79
+#define Z_PROBE_Y2 -36.25
 #define Z_PROBE_X3 0
-#define Z_PROBE_Y3 87.69
+#define Z_PROBE_Y3 72.5
 #define SDSUPPORT 1
 #define FEATURE_CONTROLLER 13
 #define UI_PRINTER_NAME "ORION Delta"
@@ -504,8 +504,8 @@ Hacker Series H2 = 6
 #define PAUSE_END_COMMANDS "G91/nG1 Z-10.0 E5.1 F1500/nG90/n"
 #define EXT0_X_OFFSET 0
 #define EXT0_Y_OFFSET 0
-#define EXT0_STEPS_PER_MM 92.4
-#define EXT0_TEMPSENSOR_TYPE 97
+#define EXT0_STEPS_PER_MM 400
+#define EXT0_TEMPSENSOR_TYPE 8
 #define EXT0_TEMPSENSOR_PIN TEMP_0_PIN
 #define EXT0_HEATER_PIN HEATER_0_PIN
 #define EXT0_STEP_PIN ORIG_E0_STEP_PIN
@@ -780,7 +780,7 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 */
 // 301 = RAMBO    302 = MINI_RAMBO
 #if MOTHERBOARD == 301
-#define Z_PROBE_PIN 4
+#define Z_PROBE_PIN 10
 #elif MOTHERBOARD == 302
 #define Z_PROBE_PIN 16
 #endif
