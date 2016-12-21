@@ -22,6 +22,7 @@
 #include "Repetier.h"
 
 uint8_t mpu_threshold = 50;
+float probes[9];
 
 #include <Wire.h>
 
@@ -1157,12 +1158,19 @@ void Commands::processGCode(GCode *com)
           }
         }else{
           pProbe = (pProbe + verify) /2;
-          Com::printFLN(PSTR("PROBE-ZOFFSET:"), pProbe );
-          /* String zoutput = "PROBE Z:";
-          zoutput = zoutput + pProbe;
-          char ztemp[15];
-          zoutput.toCharArray(ztemp, 15);
-          UI_STATUS_UPD_RAM(ztemp); */
+          if(com->hasP()){
+            if(com->P < 10){
+              probes[com->P] = pProbe;
+            }else{
+              for(int i=0;i<10;i++){
+                Com::print(PSTR("Point "));
+                Com::printF(i);
+                Com::printFLN(PSTR(" - PROBE OFFSET:"), pProbe );
+              }
+            }
+          }else{
+            Com::printFLN(PSTR("PROBE-ZOFFSET:"), pProbe );
+          }
         }
 #if PRINTER == 3
         Printer::maxTravelAccelerationMMPerSquareSecond[Z_AXIS] = 400;
